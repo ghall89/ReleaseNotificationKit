@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct UpdaterView: View {
+public struct UpdaterView: View {
 	@AppStorage("lastCheckedVersion") var lastCheckedVersion: String = "v0.0.0"
 	
 	var bundleName: String
@@ -17,7 +17,7 @@ struct UpdaterView: View {
 	var releaseNotes: String
 	
 	
-	var body: some View {
+	public var body: some View {
 		VStack {
 			Text("A new version of \(bundleName) is available!")
 				.font(.headline)
