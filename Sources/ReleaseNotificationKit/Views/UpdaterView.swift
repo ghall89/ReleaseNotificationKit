@@ -1,17 +1,11 @@
-//
-//  SwiftUIView.swift
-//
-//
-//  Created by Graham Hall on 11/9/23.
-//
-
 import SwiftUI
 
-public struct UpdaterView: View {
-	@AppStorage("lastCheckedVersion") var lastCheckedVersion: String = "v0.0.0"
+public struct UpdaterView: View {	
+	@Environment(\.dismiss) var dismiss
+	@Environment(\.openURL) var openURL
 	
-	var bundleName: String
-	var newVersion: GitHubRelease
+	public var bundleName: String
+	public var newVersion: GitHubRelease
 	
 	public var body: some View {
 		VStack {
@@ -27,9 +21,16 @@ public struct UpdaterView: View {
 			
 			HStack {
 				Spacer()
-				Button("Update Later...", action: {})
+				Button("Update Later...", action: {
+					dismiss()
+				})
 					.keyboardShortcut(.cancelAction)
-				Button("Download", action: {})
+				Button("Download", action: {
+					if let url = URL(string: newVersion.html_url) {
+						openURL(url)
+					}
+					dismiss()
+				})
 					.keyboardShortcut(.defaultAction)
 			}
 		}
